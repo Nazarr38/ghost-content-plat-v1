@@ -11,11 +11,20 @@ import { WhatsAppButton } from './components/widgets/WhatsAppButton'
 import { FloatingCTA } from './components/widgets/FloatingCTA'
 import { ClientDashboard } from './pages/dashboard/ClientDashboard'
 import { FreelancerDashboard } from './pages/dashboard/FreelancerDashboard'
+import { CheckoutSuccess } from './pages/checkout/Success'
+import { CheckoutCancel } from './pages/checkout/Cancel'
 import { useAuth } from './hooks/useAuth'
 
 function App() {
   const { profile } = useAuth()
   const path = window.location.pathname
+
+  if (path === '/checkout/success') {
+    return <CheckoutSuccess />
+  }
+  if (path === '/checkout/cancel') {
+    return <CheckoutCancel />
+  }
 
   if (path.startsWith('/dashboard')) {
     if (!profile) {
@@ -31,7 +40,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-navy-900 dark:text-gray-100">
       <Header />
       <main>
         <Hero />
