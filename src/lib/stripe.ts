@@ -1,29 +1,51 @@
-import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe, Stripe } from '@stripe/stripe-js'
 
-const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'demo-key'
+let stripePromise: Promise<Stripe | null> | null = null
 
-export const stripe = await loadStripe(stripePublishableKey)
+export const getStripe = async (): Promise<Stripe | null> => {
+  if (!stripePromise) {
+    const key = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+    if (!key) {
+      console.error('Missing VITE_STRIPE_PUBLISHABLE_KEY')
+      return null
+    }
+    stripePromise = loadStripe(key).catch((err) => {
+      console.error('Failed to load Stripe', err)
+      return null
+    })
+  }
+  return stripePromise
+}
+
+const requiredEnv = (name: string): string => {
+  const value = import.meta.env[name]
+  if (!value) {
+    console.warn(`Missing env var: ${name}`)
+    return ''
+  }
+  return value
+}
 
 export const subscriptionPlans = {
   starter: {
-    id: import.meta.env.STRIPE_STARTER_PLAN_ID || 'demo-starter',
+    id: requiredEnv('VITE_STRIPE_STARTER_PLAN_ID'),
     name: 'Starter',
     price: 299,
     commission: 0.30,
     features: [
-      'Jusqu\'à 5 projets par mois',
+      "Jusqu'à 5 projets par mois",
       'Matching automatique',
       'Support par email',
       'Templates de brief',
     ]
   },
   pro: {
-    id: import.meta.env.STRIPE_PRO_PLAN_ID || 'demo-pro',
+    id: requiredEnv('VITE_STRIPE_PRO_PLAN_ID'),
     name: 'Pro',
     price: 799,
     commission: 0.25,
     features: [
-      'Jusqu\'à 20 projets par mois',
+      "Jusqu'à 20 projets par mois",
       'Matching premium',
       'Support prioritaire',
       'Révisions illimitées',
@@ -31,7 +53,7 @@ export const subscriptionPlans = {
     ]
   },
   elite: {
-    id: import.meta.env.STRIPE_ELITE_PLAN_ID || 'demo-elite',
+    id: requiredEnv('VITE_STRIPE_ELITE_PLAN_ID'),
     name: 'Elite',
     price: 1499,
     commission: 0.20,

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
 import { Card } from '../ui/Card'
-import { mockTestimonials } from '../../lib/mockData'
+import { fetchTestimonials, Testimonial } from '../../lib/supabase'
 
 const TestimonialCard: React.FC<{
-  testimonial: typeof mockTestimonials[0]
+  testimonial: Testimonial
   index: number
 }> = ({ testimonial, index }) => {
   return (
@@ -17,11 +17,11 @@ const TestimonialCard: React.FC<{
     >
       <Card className="p-8 h-full relative" hover>
         <Quote className="w-8 h-8 text-gold-500 mb-4" />
-        
+
         <p className="text-gray-700 mb-6 text-lg leading-relaxed">
           "{testimonial.content}"
         </p>
-        
+
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <img
@@ -34,7 +34,7 @@ const TestimonialCard: React.FC<{
               <p className="text-sm text-gray-600">{testimonial.role}</p>
             </div>
           </div>
-          
+
           <div className="flex text-gold-500">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
@@ -52,6 +52,14 @@ const TestimonialCard: React.FC<{
 }
 
 export const TestimonialsSection: React.FC = () => {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+
+  useEffect(() => {
+    fetchTestimonials()
+      .then(setTestimonials)
+      .catch((err) => console.error(err))
+  }, [])
+
   return (
     <section className="py-20 bg-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +79,7 @@ export const TestimonialsSection: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mockTestimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={testimonial.id}
               testimonial={testimonial}

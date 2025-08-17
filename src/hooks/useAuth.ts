@@ -15,6 +15,7 @@ export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (isDemoMode) {
@@ -32,41 +33,57 @@ export const useAuth = () => {
       return
     }
 
-    // Mode production
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user ?? null)
-      
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single()
-        
-        setProfile(profile)
-      } else {
-        setProfile(null)
+      try {
+        setUser(session?.user ?? null)
+
+        if (session?.user) {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session.user.id)
+            .single()
+
+          if (error) throw error
+          setProfile(data as Profile)
+        } else {
+          setProfile(null)
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err))
+      } finally {
+        setLoading(false)
       }
-      
-      setLoading(false)
     })
 
-    return () => subscription.unsubscribe()
+    return () => subscription?.unsubscribe()
   }, [])
 
-  const signUp = async (email: string, userData: { full_name: string, user_type: 'client' | 'freelancer' }) => {
+  const signUp = async (
+    email: string,
+    userData: { full_name: string; user_type: 'client' | 'freelancer' }
+  ) => {
     if (isDemoMode) {
       return { error: null }
     }
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password: 'temp-password', // En production, utiliser magic link
-      options: {
-        data: userData
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        options: {
+          data: userData,
+          emailRedirectTo: window.location.origin,
+        },
+      })
+      if (error) {
+        setError(error.message)
       }
-    })
-    return { error }
+      return { error }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+      setError(message)
+      return { error: err as unknown }
+    }
   }
 
   const signIn = async (email: string) => {
@@ -74,8 +91,17 @@ export const useAuth = () => {
       return { error: null }
     }
 
-    const { error } = await supabase.auth.signInWithOtp({ email })
-    return { error }
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ email })
+      if (error) {
+        setError(error.message)
+      }
+      return { error }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+      setError(message)
+      return { error: err as unknown }
+    }
   }
 
   const signOut = async () => {
@@ -84,17 +110,22 @@ export const useAuth = () => {
       return
     }
 
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err))
+    }
   }
 
   return {
     user,
     profile,
     loading,
+    error,
     signUp,
     signIn,
     signOut,
     isAuthenticated: !!profile,
-    isDemoMode
+    isDemoMode,
   }
 }
