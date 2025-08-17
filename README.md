@@ -180,8 +180,21 @@ npx vercel
 npx vercel --prod
 ```
 
-### Variables d'environnement production
-Ajoutez toutes les variables de `.env` dans votre dashboard Vercel/Netlify.
+### Variables d'environnement sur Vercel
+Dans le dashboard Vercel, ajoutez les variables suivantes (issues de `.env.example`) dans **Project Settings → Environment Variables** :
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `VITE_DEMO_MODE` (optionnel)
+- `VITE_STRIPE_PUBLISHABLE_KEY`
+- `VITE_STRIPE_STARTER_PLAN_ID`
+- `VITE_STRIPE_PRO_PLAN_ID`
+- `VITE_STRIPE_ELITE_PLAN_ID`
+- `VITE_APP_URL`
+- `VITE_API_URL`
+- `VITE_WHATSAPP_NUMBER`
+
+Plus d'informations dans la [documentation Vercel](https://vercel.com/docs/projects/environment-variables).
 
 ## 📚 API Endpoints
 

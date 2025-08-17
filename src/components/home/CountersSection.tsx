@@ -72,12 +72,42 @@ const CounterCard: React.FC<{
 
 export const CountersSection: React.FC = () => {
   const [counters, setCounters] = useState<Counters | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchCounters()
       .then(setCounters)
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err)
+        setFetchError(err.message)
+      })
+      .finally(() => setLoading(false))
   }, [])
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-4 border-gold-500 border-t-transparent" />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (fetchError) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-red-600">
+            Impossible de charger les compteurs : {fetchError}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="py-20 bg-white">
