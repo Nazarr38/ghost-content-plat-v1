@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, Ghost, User, LogOut } from 'lucide-react'
+import { Menu, X, User, LogOut } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { useAuth } from '../../hooks/useAuth'
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { profile, signOut, isDemoMode } = useAuth()
+  const { profile, signOut, signIn, isDemoMode } = useAuth()
 
   const navigation = [
     { name: 'Accueil', href: '#home' },
@@ -37,8 +37,7 @@ export const Header: React.FC = () => {
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
           >
-            <Ghost className="w-8 h-8 text-gold-500" />
-            <span className="text-xl font-bold text-navy-900">Ghost Content</span>
+            <img src="/logo.svg" alt="GhostContent" className="h-8" />
           </motion.div>
 
           {/* Navigation Desktop */}
@@ -77,7 +76,11 @@ export const Header: React.FC = () => {
               </div>
             ) : (
               <>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => signIn('demo@ghostcontent.fr')}
+                >
                   Se connecter
                 </Button>
                 <Button size="sm">
@@ -129,7 +132,12 @@ export const Header: React.FC = () => {
                   </div>
                 ) : (
                   <>
-                    <Button variant="ghost" size="sm" className="w-full">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => signIn('demo@ghostcontent.fr')}
+                    >
                       Se connecter
                     </Button>
                     <Button size="sm" className="w-full">
