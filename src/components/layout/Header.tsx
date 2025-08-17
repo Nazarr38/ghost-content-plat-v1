@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Menu, X, User, LogOut } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { useAuth } from '../../hooks/useAuth'
+import { scrollToContact } from '../../lib/navigation'
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -58,6 +59,12 @@ export const Header: React.FC = () => {
           <div className="hidden md:flex items-center space-x-4">
             {profile ? (
               <div className="flex items-center space-x-4">
+                <a
+                  href={profile.user_type === 'client' ? '/dashboard/client' : '/dashboard/freelancer'}
+                  className="text-sm text-navy-700 hover:text-gold-600 transition-colors"
+                >
+                  Dashboard
+                </a>
                 <div className="flex items-center space-x-2">
                   <User className="w-5 h-5 text-navy-700" />
                   <span className="text-sm text-navy-700">{profile.full_name || profile.email}</span>
@@ -83,7 +90,7 @@ export const Header: React.FC = () => {
                 >
                   Se connecter
                 </Button>
-                <Button size="sm">
+                <Button size="sm" onClick={scrollToContact}>
                   Trouver un freelance
                 </Button>
               </>
@@ -126,6 +133,13 @@ export const Header: React.FC = () => {
                 {profile ? (
                   <div className="space-y-2">
                     <p className="text-sm font-medium text-navy-700">{profile.full_name || profile.email}</p>
+                    <a
+                      href={profile.user_type === 'client' ? '/dashboard/client' : '/dashboard/freelancer'}
+                      className="block text-sm text-navy-700 hover:text-gold-600 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Dashboard
+                    </a>
                     <Button variant="outline" size="sm" onClick={signOut} className="w-full">
                       Se déconnecter
                     </Button>
@@ -140,7 +154,14 @@ export const Header: React.FC = () => {
                     >
                       Se connecter
                     </Button>
-                    <Button size="sm" className="w-full">
+                    <Button
+                      size="sm"
+                      className="w-full"
+                      onClick={() => {
+                        scrollToContact()
+                        setIsMenuOpen(false)
+                      }}
+                    >
                       Trouver un freelance
                     </Button>
                   </>

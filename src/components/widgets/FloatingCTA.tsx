@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ArrowRight } from 'lucide-react'
 import { Button } from '../ui/Button'
+import { scrollToContact } from '../../lib/navigation'
 
 export const FloatingCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -47,7 +48,7 @@ export const FloatingCTA: React.FC = () => {
               Trouvez le freelance parfait en moins de 24h
             </p>
             
-            <Button size="sm" className="w-full group">
+            <Button size="sm" className="w-full group" onClick={scrollToContact}>
               Démarrer maintenant
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
