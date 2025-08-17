@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Play, Star, ArrowRight } from 'lucide-react'
 import { Button } from '../ui/Button'
+import { scrollToContact } from '../../lib/navigation'
 
 export const Hero: React.FC = () => {
   return (
@@ -52,7 +53,7 @@ export const Hero: React.FC = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="group">
+              <Button size="lg" className="group" onClick={scrollToContact}>
                 Trouver un freelance
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>

@@ -44,3 +44,20 @@ export const fetchTestimonials = async (): Promise<Testimonial[]> => {
   if (error) throw error
   return data as Testimonial[]
 }
+
+export const submitContactRequest = async (
+  request: { name: string; email: string; message: string; project: string }
+) => {
+  if (isDemoMode) {
+    return { error: null }
+  }
+
+  const { error } = await supabase.from('contact_requests').insert({
+    name: request.name,
+    email: request.email,
+    message: request.message,
+    project_details: request.project,
+  })
+
+  return { error }
+}
