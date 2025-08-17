@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Users, CheckCircle, Clock, Star } from 'lucide-react'
-import { mockCounters } from '../../lib/mockData'
+import { fetchCounters, Counters } from '../../lib/supabase'
 
 const useCounter = (endValue: number, duration: number = 2000) => {
   const [count, setCount] = useState(0)
@@ -46,10 +46,10 @@ const CounterCard: React.FC<{
   const { count, startCounting } = useCounter(value)
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && value > 0) {
       startCounting()
     }
-  }, [isInView, startCounting])
+  }, [isInView, startCounting, value])
 
   return (
     <motion.div
@@ -71,6 +71,14 @@ const CounterCard: React.FC<{
 }
 
 export const CountersSection: React.FC = () => {
+  const [counters, setCounters] = useState<Counters | null>(null)
+
+  useEffect(() => {
+    fetchCounters()
+      .then(setCounters)
+      .catch((err) => console.error(err))
+  }, [])
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,25 +100,25 @@ export const CountersSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <CounterCard
             icon={<Users className="w-8 h-8" />}
-            value={mockCounters.freelancesActifs}
+            value={counters?.freelancesActifs ?? 0}
             label="Freelances actifs"
           />
-          
+
           <CounterCard
             icon={<CheckCircle className="w-8 h-8" />}
-            value={mockCounters.projetsRealises}
+            value={counters?.projetsRealises ?? 0}
             label="Projets réalisés"
           />
-          
+
           <CounterCard
             icon={<Star className="w-8 h-8" />}
-            value={mockCounters.clientsSatisfaits}
+            value={counters?.clientsSatisfaits ?? 0}
             label="Clients satisfaits"
           />
-          
+
           <CounterCard
             icon={<Clock className="w-8 h-8" />}
-            value={mockCounters.heuresMoyennesLivraison}
+            value={counters?.heuresMoyennesLivraison ?? 0}
             label="Heures de livraison moyenne"
             suffix="h"
           />

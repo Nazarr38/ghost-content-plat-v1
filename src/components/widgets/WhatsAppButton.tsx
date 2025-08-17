@@ -3,12 +3,20 @@ import { motion } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 
 export const WhatsAppButton: React.FC = () => {
+  const number = import.meta.env.VITE_WHATSAPP_NUMBER
+
   const handleWhatsAppClick = () => {
+    if (!number) {
+      alert('Numéro WhatsApp non configuré')
+      return
+    }
     const message = encodeURIComponent(
       "Bonjour ! Je suis intéressé(e) par Ghost Content. Pouvez-vous m'en dire plus ?"
     )
-    window.open(`https://wa.me/33123456789?text=${message}`, '_blank')
+    window.open(`https://wa.me/${number}?text=${message}`, '_blank')
   }
+
+  if (!number) return null
 
   return (
     <motion.button
