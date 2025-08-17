@@ -3,11 +3,10 @@ import { motion } from 'framer-motion'
 import { Check, Crown, Star, Zap } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { Button } from '../ui/Button'
-import { subscriptionPlans } from '../../lib/stripe'
+import { subscriptionPlans, redirectToCheckout } from '../../lib/stripe'
 
-const subscribe = (planKey: 'starter' | 'pro' | 'elite') => {
-  // TODO: Implémenter le tunnel d'abonnement
-  console.log(`subscribe to ${planKey}`)
+const subscribe = async (planKey: 'starter' | 'pro' | 'elite') => {
+  await redirectToCheckout(planKey)
 }
 
 const PlanCard: React.FC<{
@@ -50,14 +49,14 @@ const PlanCard: React.FC<{
             {icons[planKey]}
           </div>
           
-          <h3 className="text-2xl font-bold text-navy-900 mb-2">{plan.name}</h3>
+          <h3 className="text-2xl font-bold text-navy-900 dark:text-white mb-2">{plan.name}</h3>
           
           <div className="mb-4">
-            <span className="text-4xl font-bold text-navy-900">{plan.price}€</span>
-            <span className="text-gray-600">/mois</span>
+            <span className="text-4xl font-bold text-navy-900 dark:text-white">{plan.price}€</span>
+            <span className="text-gray-600 dark:text-gray-300">/mois</span>
           </div>
           
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Commission: {(plan.commission * 100)}% par mission
           </p>
         </div>
@@ -66,7 +65,7 @@ const PlanCard: React.FC<{
           {plan.features.map((feature, i) => (
             <li key={i} className="flex items-start space-x-3">
               <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">{feature}</span>
+              <span className="text-gray-700 dark:text-gray-300">{feature}</span>
             </li>
           ))}
         </ul>
@@ -86,7 +85,7 @@ const PlanCard: React.FC<{
 
 export const PricingSection: React.FC = () => {
   return (
-    <section id="pricing" className="py-20 bg-white">
+    <section id="pricing" className="py-20 bg-white dark:bg-navy-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -95,10 +94,10 @@ export const PricingSection: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white mb-4">
             Choisissez votre plan
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Des tarifs transparents adaptés à tous les besoins. 
             Commissions dégressives et support premium inclus.
           </p>
@@ -131,23 +130,23 @@ export const PricingSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="bg-primary-50 rounded-2xl p-8">
-            <h3 className="text-xl font-semibold text-navy-900 mb-4">
+          <div className="bg-primary-50 dark:bg-navy-900 rounded-2xl p-8">
+            <h3 className="text-xl font-semibold text-navy-900 dark:text-white mb-4">
               Informations importantes
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600 dark:text-gray-300">
               <div>
-                <strong className="text-navy-900">Missions ponctuelles:</strong>
+                <strong className="text-navy-900 dark:text-white">Missions ponctuelles:</strong>
                 <br />
                 Minimum 150€ par projet
               </div>
               <div>
-                <strong className="text-navy-900">Rush (+10%):</strong>
+                <strong className="text-navy-900 dark:text-white">Rush (+10%):</strong>
                 <br />
                 Livraison en moins de 24h
               </div>
               <div>
-                <strong className="text-navy-900">Paiement:</strong>
+                <strong className="text-navy-900 dark:text-white">Paiement:</strong>
                 <br />
                 Système d'escrow sécurisé
               </div>

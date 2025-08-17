@@ -66,3 +66,23 @@ export const subscriptionPlans = {
     ]
   }
 }
+
+export const redirectToCheckout = async (planKey: 'starter' | 'pro' | 'elite') => {
+  const stripe = await getStripe()
+  if (!stripe) return
+
+  try {
+    const res = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ priceId: subscriptionPlans[planKey].id })
+    })
+    const data = await res.json()
+    const { error } = await stripe.redirectToCheckout({ sessionId: data.id })
+    if (error) {
+      console.error('Stripe redirect error', error)
+    }
+  } catch (err) {
+    console.error('Checkout session error', err)
+  }
+}

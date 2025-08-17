@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'luc
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-navy-900 text-white">
+    <footer className="bg-navy-900 text-white dark:bg-navy-950 dark:text-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo et Description */}
@@ -11,21 +11,21 @@ export const Footer: React.FC = () => {
             <div className="flex items-center space-x-2 mb-4">
               <img src="/logo.svg" alt="GhostContent" className="h-8" />
             </div>
-            <p className="text-gray-300 mb-6 max-w-md">
+            <p className="text-gray-300 dark:text-gray-400 mb-6 max-w-md">
               La plateforme qui connecte les clients premium avec les meilleurs freelances créatifs.
               Ton contenu. Sans effort.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">
+              <a href="#" className="text-gray-400 hover:text-gold-500 dark:text-gray-500 dark:hover:text-gold-400 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">
+              <a href="#" className="text-gray-400 hover:text-gold-500 dark:text-gray-500 dark:hover:text-gold-400 transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">
+              <a href="#" className="text-gray-400 hover:text-gold-500 dark:text-gray-500 dark:hover:text-gold-400 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">
+              <a href="#" className="text-gray-400 hover:text-gold-500 dark:text-gray-500 dark:hover:text-gold-400 transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
@@ -35,11 +35,11 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Liens Rapides</h3>
             <ul className="space-y-2">
-              <li><a href="#home" className="text-gray-300 hover:text-gold-500 transition-colors">Accueil</a></li>
-              <li><a href="#pricing" className="text-gray-300 hover:text-gold-500 transition-colors">Tarifs</a></li>
-              <li><a href="#how-it-works" className="text-gray-300 hover:text-gold-500 transition-colors">Comment ça marche</a></li>
-              <li><a href="#portfolio" className="text-gray-300 hover:text-gold-500 transition-colors">Portfolio</a></li>
-              <li><a href="#faq" className="text-gray-300 hover:text-gold-500 transition-colors">FAQ</a></li>
+              <li><a href="#home" className="text-gray-300 hover:text-gold-500 dark:text-gray-400 dark:hover:text-gold-400 transition-colors">Accueil</a></li>
+              <li><a href="#pricing" className="text-gray-300 hover:text-gold-500 dark:text-gray-400 dark:hover:text-gold-400 transition-colors">Tarifs</a></li>
+              <li><a href="#how-it-works" className="text-gray-300 hover:text-gold-500 dark:text-gray-400 dark:hover:text-gold-400 transition-colors">Comment ça marche</a></li>
+              <li><a href="#portfolio" className="text-gray-300 hover:text-gold-500 dark:text-gray-400 dark:hover:text-gold-400 transition-colors">Portfolio</a></li>
+              <li><a href="#faq" className="text-gray-300 hover:text-gold-500 dark:text-gray-400 dark:hover:text-gold-400 transition-colors">FAQ</a></li>
             </ul>
           </div>
 
@@ -49,30 +49,30 @@ export const Footer: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-gold-500" />
-                <span className="text-gray-300">hello@ghostcontent.fr</span>
+                <span className="text-gray-300 dark:text-gray-400">hello@ghostcontent.fr</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-gold-500" />
-                <span className="text-gray-300">+33 1 23 45 67 89</span>
+                <span className="text-gray-300 dark:text-gray-400">+33 1 23 45 67 89</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-gold-500" />
-                <span className="text-gray-300">Paris, France</span>
+                <span className="text-gray-300 dark:text-gray-400">Paris, France</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
+        <div className="border-t border-gray-700 dark:border-gray-600 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 dark:text-gray-500 text-sm">
             © 2024 Ghost Content. Tous droits réservés.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="/privacy" className="text-gray-400 hover:text-gold-500 text-sm transition-colors">
+            <a href="/privacy" className="text-gray-400 hover:text-gold-500 dark:text-gray-500 dark:hover:text-gold-400 text-sm transition-colors">
               Politique de confidentialité
             </a>
-            <a href="/terms" className="text-gray-400 hover:text-gold-500 text-sm transition-colors">
+            <a href="/terms" className="text-gray-400 hover:text-gold-500 dark:text-gray-500 dark:hover:text-gold-400 text-sm transition-colors">
               Conditions d'utilisation
             </a>
           </div>
