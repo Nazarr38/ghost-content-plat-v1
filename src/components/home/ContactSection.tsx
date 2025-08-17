@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,10 +9,10 @@ import { toast } from 'react-hot-toast'
 
 export const ContactSection: React.FC = () => {
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-white dark:bg-navy-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
-          className="text-3xl md:text-4xl font-bold text-navy-900 mb-6 text-center"
+          className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white mb-6 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -43,6 +43,8 @@ const ContactForm: React.FC = () => {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
+  const shouldReduceMotion = useReducedMotion()
+
   const onSubmit = async (data: FormValues) => {
     const { error } = await submitContactRequest(data)
     if (error) {
@@ -55,42 +57,76 @@ const ContactForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto space-y-4">
-      <input
-        className="w-full border p-3 rounded"
-        placeholder="Nom"
-        {...register('name')}
-      />
-      {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <input
+          className="w-full border p-3 rounded bg-white dark:bg-navy-700 dark:border-navy-600 dark:text-gray-100"
+          placeholder="Nom"
+          {...register('name')}
+        />
+        {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+      </motion.div>
 
-      <input
-        className="w-full border p-3 rounded"
-        placeholder="Email"
-        type="email"
-        {...register('email')}
-      />
-      {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        viewport={{ once: true }}
+      >
+        <input
+          className="w-full border p-3 rounded bg-white dark:bg-navy-700 dark:border-navy-600 dark:text-gray-100"
+          placeholder="Email"
+          type="email"
+          {...register('email')}
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+      </motion.div>
 
-      <textarea
-        className="w-full border p-3 rounded"
-        placeholder="Message"
-        rows={3}
-        {...register('message')}
-      />
-      {errors.message && <p className="text-red-500 text-sm">{errors.message.message}</p>}
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        <textarea
+          className="w-full border p-3 rounded bg-white dark:bg-navy-700 dark:border-navy-600 dark:text-gray-100"
+          placeholder="Message"
+          rows={3}
+          {...register('message')}
+        />
+        {errors.message && <p className="text-red-500 text-sm">{errors.message.message}</p>}
+      </motion.div>
 
-      <textarea
-        className="w-full border p-3 rounded"
-        placeholder="Détails du projet"
-        rows={3}
-        {...register('project')}
-      />
-      {errors.project && <p className="text-red-500 text-sm">{errors.project.message}</p>}
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        viewport={{ once: true }}
+      >
+        <textarea
+          className="w-full border p-3 rounded bg-white dark:bg-navy-700 dark:border-navy-600 dark:text-gray-100"
+          placeholder="Détails du projet"
+          rows={3}
+          {...register('project')}
+        />
+        {errors.project && <p className="text-red-500 text-sm">{errors.project.message}</p>}
+      </motion.div>
 
-      <div className="text-center">
+      <motion.div
+        className="text-center"
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
         <Button type="submit" loading={isSubmitting}>
           Envoyer
         </Button>
-      </div>
+      </motion.div>
     </form>
   )
 }

@@ -8,7 +8,7 @@ export const Hero: React.FC = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-white to-gold-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-white to-gold-50 dark:from-navy-800 dark:via-navy-900 dark:to-navy-950" />
       
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
             </motion.div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-6xl font-bold text-navy-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-navy-900 dark:text-white mb-6">
               Ton{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-gold-600">
                 contenu
@@ -46,7 +46,7 @@ export const Hero: React.FC = () => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl">
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl">
               Connectez-vous aux meilleurs freelances créatifs en moins de 24h. 
               De l'idée à la livraison, nous gérons tout pour vous.
             </p>
@@ -96,8 +96,8 @@ export const Hero: React.FC = () => {
                     <span className="text-green-600 font-bold">✓</span>
                   </div>
                   <div>
-                    <p className="font-semibold text-navy-900">Livré en 48h</p>
-                    <p className="text-sm text-gray-600">Projet terminé</p>
+                    <p className="font-semibold text-navy-900 dark:text-white">Livré en 48h</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Projet terminé</p>
                   </div>
                 </div>
               </motion.div>
