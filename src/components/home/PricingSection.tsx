@@ -5,6 +5,11 @@ import { Card } from '../ui/Card'
 import { Button } from '../ui/Button'
 import { subscriptionPlans } from '../../lib/stripe'
 
+const subscribe = (planKey: 'starter' | 'pro' | 'elite') => {
+  // TODO: Implémenter le tunnel d'abonnement
+  console.log(`subscribe to ${planKey}`)
+}
+
 const PlanCard: React.FC<{
   plan: typeof subscriptionPlans.starter
   planKey: 'starter' | 'pro' | 'elite'
@@ -70,6 +75,7 @@ const PlanCard: React.FC<{
           variant={isPopular ? 'primary' : 'outline'}
           size="lg"
           className="w-full"
+          onClick={() => subscribe(planKey)}
         >
           {isPopular ? 'Commencer maintenant' : 'Choisir ce plan'}
         </Button>

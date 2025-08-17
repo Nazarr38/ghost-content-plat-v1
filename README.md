@@ -1,6 +1,6 @@
 # 👻 Ghost Content - Plateforme SaaS
 
-> Votre concierge vidéo personnel - La plateforme qui connecte les clients premium avec les meilleurs freelances créatifs.
+> Ton contenu. Sans effort. La plateforme qui connecte les clients premium avec les meilleurs freelances créatifs.
 
 ![Ghost Content](https://images.pexels.com/photos/7947807/pexels-photo-7947807.jpeg?auto=compress&cs=tinysrgb&w=1200)
 

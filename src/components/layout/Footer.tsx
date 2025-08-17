@@ -1,5 +1,5 @@
 import React from 'react'
-import { Ghost, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
 
 export const Footer: React.FC = () => {
   return (
@@ -9,12 +9,11 @@ export const Footer: React.FC = () => {
           {/* Logo et Description */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <Ghost className="w-8 h-8 text-gold-500" />
-              <span className="text-xl font-bold">Ghost Content</span>
+              <img src="/logo.svg" alt="GhostContent" className="h-8" />
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
-              La plateforme qui connecte les clients premium avec les meilleurs freelances créatifs. 
-              Votre concierge vidéo personnel pour des contenus exceptionnels.
+              La plateforme qui connecte les clients premium avec les meilleurs freelances créatifs.
+              Ton contenu. Sans effort.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">
